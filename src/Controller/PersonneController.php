@@ -2,17 +2,28 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PersonneController extends AbstractController
 {
-    #[Route('/personne', name: 'app_personne')]
-    public function index(): Response
+    #[Route('/personne/add', name: 'personne')]
+    public function addPersonne(ManagerRegistry $doctrine): Response
     {
-        return $this->render('personne/index.html.twig', [
-            'controller_name' => 'PersonneController',
+
+        $entityManager = $doctrine->getManager();
+        $personne = new Personne();
+
+        $personne -> setFirstName('Moussa');
+        $personne -> setName('Issa');
+        $personne -> setAge('32');
+
+        $entityManager->persist($personne);
+
+        return $this->render('personne/detail.html.twig', [
+            'personne' => $personne,
         ]);
     }
 }
