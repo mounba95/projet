@@ -1,8 +1,21 @@
 {% extends "base.html.twig" %}
 
+
+{% block title %} Liste des personne {% endblock %}
+
 {% block body %}
-<div class="alert alert-success">
-{{ personne.fisrtname }} {{ personne.name}} {{personne.age}}
+<div class="row">
+    {% for personne in personnes %}
+    <div class="card mb-3">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">{{ personne.name}}</h5>
+        <p class="card-text">{{ personne.firstname}} {{ personne.name }}</p>
+        <p class="card-text">Age: {{ personne.age }}</p>
+        <link rel="stylesheet" href="{{ path('peronne.details',{id: personne.id})}}">
+        <a href="{{ path('peronne.details',{id: personne.id})}}">Detail</a>
+    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}
